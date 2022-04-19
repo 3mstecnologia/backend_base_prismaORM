@@ -22,7 +22,8 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
 
-  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
+
+  Categoria   Categoria? @relation(fields: [categoriaId], references: [id])
   categoriaId Int?
 }
 
@@ -33,5 +34,6 @@ model Categoria {
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
   user       User[]
+
 
 }
