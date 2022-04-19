@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+//criando tabela de usuarios e categorias com o relacionamento pronto
+
+model User {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  ra         String
+  email      String   @unique
+  cpf        String   @unique
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  categoria   Categoria? @relation(fields: [categoriaId], references: [id])
+  categoriaId Int?
+}
+
+//criar tabela de permissoes dos usuarios
+model Categoria {
+  id         Int      @id @default(autoincrement())
+  categoria  String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  user       User[]
+
+}
